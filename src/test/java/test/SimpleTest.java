@@ -22,7 +22,7 @@ public class SimpleTest {
         Response response = requestSpec.get("/1");
         response.prettyPeek();
         response.then().body("userId", equalTo(1));
-        response.then().body("id", equalTo(2));
+        response.then().body("id", equalTo(1));
         response.then().body("title", equalTo("delectus aut autem"));
         response.then().body("completed", equalTo(false));
 
