@@ -15,7 +15,7 @@ public class POSTMethod {
 
 
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args){
         String basseUrl = "https://jsonplaceholder.typicode.com";
 
         // Request scope
@@ -26,13 +26,6 @@ public class POSTMethod {
         // Conten-type -> Header
         requestSpec.header(new Header("Content-Type", "application/json; charset=UTF-8"));
 
-        // Form up request body
-//       String postBody = "{\n" +
-//               "\"userId\": 1,\n" +
-//               "\"id\": 1,\n" +
-//               "\"title\": \"The req'tittle\",\n" +
-//               "\"body\": \"The req' body\"\n" +
-//               "}";
 
        // Gson
         Gson gson = new Gson();

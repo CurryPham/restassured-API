@@ -6,11 +6,11 @@ import io.restassured.specification.RequestSpecification;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.equalTo;
 
-public class SimpleTest {
+public class GETMethod {
 
 
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args){
         String basseUrl = "https://jsonplaceholder.typicode.com";
 
         // Request scope
