@@ -4,12 +4,12 @@ import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import model.BuildModleJSON;
 import model.PostBody;
-import model.ResquestCapability;
+import model.RequestCapability;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.equalTo;
 
-public class PATHMethod implements ResquestCapability {
+public class PATHMethod implements RequestCapability {
 
 
 
