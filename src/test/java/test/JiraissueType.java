@@ -14,7 +14,7 @@ public class JiraissueType implements RequestCapability {
         String pathUrl = "/rest/api/3/project/RA";
 
         String email = "khoapd2000@gmail.com";
-        String apiToken = "xEnGnrtmMAV4ZRL9PegJBDE1";
+        String apiToken = "r4PV3w5mfeQ26Q4xhSfvF2AF";
         String cred = email.concat(":").concat(apiToken);
         byte[] encodedCred = Base64.encodeBase64(cred.getBytes());
         String encodedCredStr = new String(encodedCred);
@@ -22,7 +22,7 @@ public class JiraissueType implements RequestCapability {
         RequestSpecification request = given();
         request.baseUri(baseUri);
         request.header(defaultHeader);
-        request.header("Authorization", "Basic " + encodedCredStr);
+        request.header(getAuthenticatedHeader.apply(encodedCredStr));
 
         Response response = request.get(pathUrl);
         response.prettyPrint();
