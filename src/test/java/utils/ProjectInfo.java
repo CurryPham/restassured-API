@@ -33,6 +33,7 @@ public class ProjectInfo implements RequestCapability {
         getIssueTypes();
 
         String issueTypeId = null;
+
         for (Map<String, String> issueType : issueTypes) {
             if (issueType.get("name").equalsIgnoreCase(issueTypeStr)) {
                 issueTypeId = issueType.get("id");
@@ -48,9 +49,10 @@ public class ProjectInfo implements RequestCapability {
 
     private void getProjectInfo(){
         String pathUrl = "/rest/api/3/project/".concat(projectKey);
+
         String email = "khoapd2000@gmail.com";
-        String apiToken = "VDT9pQreIsn5B8XZyoiS7193";
-        String encodedCredStr = AuthenticationHandle.getEncodedCredStr(email, apiToken);
+        String apiToken = "JzYO2lUGv92ZAfeckS7t8A56";
+        String encodedCredStr = AuthenticationHandler.getEncodedCredStr(email, apiToken);
 
         RequestSpecification request = given();
         request.baseUri(baseUri);
