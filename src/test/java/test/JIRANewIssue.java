@@ -1,11 +1,16 @@
 package test;
 
 
+import builder.BodyJSONBuilder;
+import builder.IsssueContentBuilder;
+import com.google.gson.Gson;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 
+import model.IssueFields;
 import model.RequestCapability;
 import utils.AuthenticationHandle;
+import utils.ProjectInfo;
 
 import static io.restassured.RestAssured.given;
 
@@ -30,23 +35,14 @@ public class JIRANewIssue implements RequestCapability {
         request.header(getAuthenticatedHeader.apply(encodedCredStr));
 
         // Define body data
-        String fieldsStr = "{\n" +
-                "  \"fields\": {\n" +
-                "    \"summary\": \"Summary | From Jira API\",\n" +
-                "    \"project\": {\n" +
-                "      \"key\": \"RA\"\n" +
-                "    },\n" +
-                "    \"issuetype\": {\n" +
-                "      \"id\": \"10001\"\n" +
-                "    }\n" +
-                "  }\n" +
-                "}";
+        ProjectInfo projectInfo = new ProjectInfo(baseUri, projectKey);
+        String taskTypeId = projectInfo.getIssueTypeId("task");
+        String summary = "This is my summary";
+        String issueFieldContent = IsssueContentBuilder.build(projectKey, taskTypeId, summary);
 
         // Send request
-        Response response = request.body(fieldsStr).post(path);
+        Response response = request.body(issueFieldContent).post(path);
         response.prettyPrint();
 
     }
-
-
 }
