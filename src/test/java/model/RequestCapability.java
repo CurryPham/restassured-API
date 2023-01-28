@@ -7,6 +7,7 @@ import java.util.function.Function;
 
 public interface RequestCapability {
     Header defaultHeader = new Header("Content-Type", "application/json; charset=UTF-8");
+    Header acceptJSONHeader = new Header("Accept", "application/json");
 
     static Header getAuthenticatedHeader(String encodedCredStr){
         if(encodedCredStr == null){
