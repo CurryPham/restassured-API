@@ -4,12 +4,17 @@ import model.IssueFields;
 
 public class IsssueContentBuilder{
 
+    private IssueFields issueFields;
 
-    public static String build(String projectKey, String taskTypeId, String summary){
+    public IssueFields getIssueFields() {
+        return issueFields;
+    }
+
+    public String build(String projectKey, String taskTypeId, String summary){
         IssueFields.IssueType issueType = new IssueFields.IssueType(taskTypeId);
         IssueFields.Project project = new IssueFields.Project(projectKey);
         IssueFields.Fields fields = new IssueFields.Fields(project, issueType, summary);
-        IssueFields issueFields = new IssueFields(fields);
+        issueFields = new IssueFields(fields);
 
         return BodyJSONBuilder.getJSONContent(issueFields);
     }
