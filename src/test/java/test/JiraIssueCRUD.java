@@ -18,7 +18,7 @@ public class JiraIssueCRUD implements RequestCapability {
         String path = "/rest/api/3/issue";
 
         String email = "khoapd2000@gmail.com";
-        String apiToken = "pGNJx9h7sT2F5it0WNGRBC4C";
+        String apiToken = "oqXasGVfHRO3ZKVhpPXz3184";
         String encodedCredStr = AuthenticationHandler.getEncodedCredStr(email, apiToken);
 
         // Request object

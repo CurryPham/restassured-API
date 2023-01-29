@@ -24,13 +24,13 @@ public class IssueFlow {
     private String createdIssueKey;
     private String projectKey;
     private String issueTypeStr;
-    private IssueFields issueFieldds;
+    private IssueFields issueFields;
     String status;
 
     static {
         transitionTypeMap.put("11", "To Do");
         transitionTypeMap.put("21", "In Progress");
-        transitionTypeMap.put("30", "Done");
+        transitionTypeMap.put("31", "Done");
     }
 
 
@@ -39,7 +39,7 @@ public class IssueFlow {
         this.baseUri = baseUri;
         this.projectKey = projectKey;
         this.issueTypeStr = issueTypeStr;
-        this.status = "To do";
+        this.status = "To Do";
     }
 
     public void createIssue(){
@@ -51,7 +51,7 @@ public class IssueFlow {
         String randomSummary = RandomStringUtils.random(desiredLength, hasLetters, hasNumbers);
         IsssueContentBuilder isssueContentBuilder = new IsssueContentBuilder();
         String issueFieldContent = isssueContentBuilder.build(projectKey, taskTypeId, randomSummary);
-        issueFieldds = isssueContentBuilder.getIssueFields();
+        issueFields = isssueContentBuilder.getIssueFields();
         Response response = request.body(issueFieldContent).post(issuePathPrefix);
 
         Map<String,String> responseBody = JsonPath.from(response.asString()).get();
@@ -61,7 +61,7 @@ public class IssueFlow {
 
     public void verifyIssueDetails(){
         Map<String, String> issueInfo = getIssueInfo();
-        String expectedSummary = issueFieldds.getFields().getSummary();
+        String expectedSummary = issueFields.getFields().getSummary();
         String expectedStatus = status;
         String actualSummary = issueInfo.get("summary");
         String actualStatus = issueInfo.get("status");
@@ -97,20 +97,20 @@ public class IssueFlow {
         }
 
         if (targetTransitionId == null){
-            throw new RuntimeException("[ERR] issue statis string provided is not supportted!");
+            throw new RuntimeException("[ERR] issue static string provided is not supported!");
         }
 
-        String isssueTransitionPath = issuePathPrefix + "/" + createdIssueKey + "/transitions";
+        String issueTransitionPath = issuePathPrefix + "/" + createdIssueKey + "/transitions";
         IssueTransition.Transition transition = new IssueTransition.Transition(targetTransitionId);
         IssueTransition issueTransition = new IssueTransition(transition);
         String transitionBody = BodyJSONBuilder.getJSONContent(issueTransition);
 
-        request.body(transitionBody).post(isssueTransitionPath).then().statusCode(204);
+        request.body(transitionBody).post(issueTransitionPath).then().statusCode(204);
 
         Map<String, String> issueInfo = getIssueInfo();
         String actualIssueStatus = issueInfo.get("status");
         String expectedIssueStatus = transitionTypeMap.get(targetTransitionId);
-        System.out.println("lastestIssuesStatus: " + actualIssueStatus);
+        System.out.println("latestIssuesStatus: " + actualIssueStatus);
         System.out.println("expectedIssuesStatus: " + expectedIssueStatus);
 
     }
@@ -118,6 +118,7 @@ public class IssueFlow {
     public  void deleteIssue(){
         // DELETE CREATED JIRA TASK
         String path = issuePathPrefix + "/" + createdIssueKey;
+        request.delete(path);
         response = request.get(path);
         Map<String, List<String>> notExistingIssueRes = JsonPath.from(response.body().asString()).get();
         List<String> errorMessages = notExistingIssueRes.get("errorMessages");

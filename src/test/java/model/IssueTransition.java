@@ -4,7 +4,7 @@ public class IssueTransition {
 
     private final Transition transition;
 
-    public Transition getTranstion() {
+    public Transition getTransition() {
         return transition;
     }
 
@@ -13,7 +13,7 @@ public class IssueTransition {
     }
 
     public static class Transition {
-        private String id;
+        private final String id;
 
         public Transition(String id) {
             this.id = id;
