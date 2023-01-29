@@ -4,6 +4,7 @@ package test;
 import api_flow.IssueFlow;
 import io.restassured.specification.RequestSpecification;
 import model.RequestCapability;
+import org.testng.annotations.Test;
 import utils.AuthenticationHandler;
 
 import static io.restassured.RestAssured.given;
@@ -11,14 +12,15 @@ import static io.restassured.RestAssured.given;
 
 public class JiraIssueCRUD implements RequestCapability {
 
-    public static void main(String[] args) {
+    @Test
+    public static void testE2EFlow() {
         // API Info
         String baseUri = "https://restassuredapi.atlassian.net";
         String projectKey = "RA";
         String path = "/rest/api/3/issue";
 
         String email = "khoapd2000@gmail.com";
-        String apiToken = "oqXasGVfHRO3ZKVhpPXz3184";
+        String apiToken = "ic3Nhmlwv0kuSydH6FRy9916";
         String encodedCredStr = AuthenticationHandler.getEncodedCredStr(email, apiToken);
 
         // Request object

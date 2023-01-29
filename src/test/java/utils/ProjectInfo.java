@@ -51,7 +51,7 @@ public class ProjectInfo implements RequestCapability {
         String pathUrl = "/rest/api/3/project/".concat(projectKey);
 
         String email = "khoapd2000@gmail.com";
-        String apiToken = "oqXasGVfHRO3ZKVhpPXz3184";
+        String apiToken = "ic3Nhmlwv0kuSydH6FRy9916";
         String encodedCredStr = AuthenticationHandler.getEncodedCredStr(email, apiToken);
 
         RequestSpecification request = given();

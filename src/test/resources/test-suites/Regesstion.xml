@@ -1,0 +1,7 @@
+<suite name="Regesstion" >
+    <test name="Jira - Issuse E2E">
+        <classes>
+            <class name="test.JiraIssueCRUD"/>
+        </classes>
+    </test>
+</suite>
