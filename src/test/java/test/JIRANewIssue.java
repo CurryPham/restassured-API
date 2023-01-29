@@ -15,6 +15,7 @@ import utils.AuthenticationHandler;
 import utils.ProjectInfo;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 
@@ -30,7 +31,7 @@ public class JIRANewIssue implements RequestCapability {
         String path = "/rest/api/3/issue";
 
         String email = "khoapd2000@gmail.com";
-        String apiToken = "JzYO2lUGv92ZAfeckS7t8A56";
+        String apiToken = "r92DpWbIAPc0PynjGevn007A";
         String encodedCredStr = AuthenticationHandler.getEncodedCredStr(email, apiToken);
 
         // Request object
@@ -105,5 +106,19 @@ public class JIRANewIssue implements RequestCapability {
         issueInfo = getIssueInfo.apply(CREATED_ISSUE_KEY);
         String latestIssueStatus = issueInfo.get("status");
         System.out.println("lastestIssuesStatus: " + latestIssueStatus);
+
+        // DELETE CREATED JIRA TASK
+        String deleteIssuePath = "/rest/api/3/issue/" + CREATED_ISSUE_KEY;
+        request.delete(deleteIssuePath).prettyPrint();
+
+
+        // Verify issues is not existing
+        String getIssuePath = "/rest/api/3/issue/" + CREATED_ISSUE_KEY;
+        response = request.get(getIssuePath);
+        Map<String, List<String>> notExistingIssueRes = JsonPath.from(response.body().asString()).get();
+        List<String> errorMessages = notExistingIssueRes.get("errorMessages");
+        System.out.println("Returned msg: " + errorMessages.get(0));
+
+
     }
 }
